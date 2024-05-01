@@ -1,17 +1,19 @@
 #!/usr/bin/python3
-"""Esta es la clase de amenidades"""
-import models
-from models.base_model import BaseModel, Base
-from sqlalchemy.orm import relationship
-from sqlalchemy import Column, String
-# from models.place import place_amenity
+"""
+Module defining the Amenity class for managing amenities.
+"""
 
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
 
 class Amenity(BaseModel, Base):
-    """Esta es la clase de Amenity
-    Atributos:
-        name: nombre de entrada
+    """
+    Class representing an amenity in the application.
+
+    Attributes:
+        name (str): The name of the amenity.
     """
     __tablename__ = 'amenities'
+    
     name = Column(String(128), nullable=False)
-    # place_amenities = relationship('Place', secondary='place_amenity')
+    # Define any additional relationships or properties here
