@@ -1,6 +1,12 @@
 from models.base_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 from os import getenv
 import models
 
@@ -26,17 +32,14 @@ class DBStorage:
         """
         Queries the current database session
         """
-        if not cls:
-            data_list = self.__session.query(Amenity).all()
-            data_list.extend(self.__session.query(City).all())
-            data_list.extend(self.__session.query(Place).all())
-            data_list.extend(self.__session.query(Review).all())
-            data_list.extend(self.__session.query(State).all())
-            data_list.extend(self.__session.query(User).all())
-        else:
+        data_list = []
+        if cls:
             data_list = self.__session.query(cls).all()
-        return {'{}.{}'.format(type(obj).__name__, obj.id): obj
-                for obj in data_list}
+        else:
+            cls_list = [State, City, User, Place, Review, Amenity]
+            for cls_item in cls_list:
+                data_list.extend(self.__session.query(cls_item).all())
+        return {'{}.{}'.format(type(obj).__name__, obj.id): obj for obj in data_list}
 
     def new(self, obj):
         """
