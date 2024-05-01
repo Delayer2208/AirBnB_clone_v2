@@ -1,9 +1,4 @@
-#!/usr/bin/python3
-"""State Module for HBNB project"""
-
 from models.base_model import BaseModel, Base
-import models
-from models.city import City
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String
 
@@ -19,8 +14,16 @@ class State(BaseModel, Base):
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
         cities = relationship('City', backref='state', cascade='delete')
-    else:
-        name = ""
+
+    def __init__(self, *args, **kwargs):
+        """
+        Initializes a new State instance.
+
+        Args:
+            *args: Additional positional arguments.
+            **kwargs: Additional keyword arguments.
+        """
+        super().__init__(*args, **kwargs)
 
     if models.is_type != 'db':
         @property
