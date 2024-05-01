@@ -1,20 +1,13 @@
 #!/usr/bin/python3
-"""Review module for the HBNB project"""
-
+""" Review module for the HBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy import Column, String
 import models
 
-class Review(BaseModel, Base):
-    """
-    The Review class represents a review for a place in the HBNB project.
 
-    Attributes:
-        text (str): The text content of the review.
-        place_id (str): The ID of the place being reviewed.
-        user_id (str): The ID of the user who created the review.
-    """
+class Review(BaseModel, Base):
+    """ Review classto store review information """
     if models.is_type == 'db':
         __tablename__ = 'reviews'
         text = Column(String(1024), nullable=False)
