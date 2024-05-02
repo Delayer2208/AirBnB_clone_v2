@@ -16,6 +16,17 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             new_instance = eval(args[0])()
+            if args[0] == 'State':
+                if len(args) < 2:
+                    print("** missing name **")
+                    return
+                setattr(new_instance, 'name', args[1])
+            elif args[0] == 'City':
+                if len(args) < 3:
+                    print("** missing parameters **")
+                    return
+                setattr(new_instance, 'name', args[2].replace("_", " "))
+                setattr(new_instance, 'state_id', args[1])
             new_instance.save()
             print(new_instance.id)
         except NameError:
