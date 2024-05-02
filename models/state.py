@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-""" State Module for HBNB project """
+""" State Module for the HBNB project """
 from models.base_model import BaseModel, Base
 import models
 from models.city import City
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String
 from os import getenv
-
 
 class State(BaseModel, Base):
     """ State class """
@@ -20,6 +19,7 @@ class State(BaseModel, Base):
     if models.is_type != 'db':
         @property
         def cities(self):
+            """ Getter method for cities """
             cities_list = []
             all_cities = models.storage.all(City).values()
             for city in all_cities:

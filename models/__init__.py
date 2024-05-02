@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 """
-Este módulo crea una instancia de un objeto de clase FileStorage
+This module creates an instance of a FileStorage object.
 """
-# from models.base_model import BaseModel, Base
 from os import getenv
-
 
 is_type = getenv("HBNB_TYPE_STORAGE")
 

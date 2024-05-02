@@ -1,13 +1,19 @@
 #!/usr/bin/python3
-""" City Module for HBNB project """
+"""City Module for the HBNB project."""
+
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-
 class City(BaseModel, Base):
-    """ The city class, contains state ID and name """
+    """The City class represents a city in the HBNB project.
+
+    Attributes:
+        name (str): The name of the city.
+        state_id (str): The ID of the state to which the city belongs.
+        places (relationship): Relationship to the Place class.
+    """
     if models.is_type == "db":
         __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
