@@ -117,7 +117,7 @@ class HBNBCommand(cmd.Cmd):
                         except:
                             continue
                 dic[key] = value
-        return (dic)
+        return dic
 
     def do_create(self, args):
         """Creates a new instance of BaseModel"""
