@@ -2,26 +2,23 @@
 """
 This module creates an instance of a FileStorage object.
 """
-from os import getenv
-
-def get_storage_type():
-    """
-    Returns the type of storage.
-    """
-    return getenv("HBNB_TYPE_STORAGE")
 
 def get_storage():
     """
     Returns an instance of the appropriate storage engine.
     """
-    is_type = get_storage_type()
+    from os import getenv
     
+    is_type = getenv("HBNB_TYPE_STORAGE")
+
     if is_type == 'db':
         from models.engine.db_storage import DBStorage
-        return DBStorage()
+        storage = DBStorage()
     else:
         from models.engine.file_storage import FileStorage
-        return FileStorage()
+        storage = FileStorage()
+
+    storage.reload()
+    return storage
 
 storage = get_storage()
-storage.reload()
