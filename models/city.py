@@ -15,15 +15,10 @@ class City(BaseModel, Base):
         places (relationship): Relationship to the Place class.
     """
     if models.is_type == "db":
-        __tablename__ = "cities"
+        __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
-        state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
-        places = relationship("Place", backref="cities", cascade="all, delete-orphan")
-
+        state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+        places = relationship('Place', backref='cities', cascade='delete')
     else:
-        name = ""
         state_id = ""
-
-        def __init__(self, *args, **kwargs):
-            """Initializes a new City instance."""
-            super().__init__(*args, **kwargs)
+        name = ""

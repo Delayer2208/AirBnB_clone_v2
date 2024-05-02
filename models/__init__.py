@@ -1,8 +1,16 @@
 #!/usr/bin/python3
 """
-This module initializes the storage instance.
+This module creates an instance of a FileStorage object.
 """
+from os import getenv
 
-from .storage_factory import get_storage
+is_type = getenv("HBNB_TYPE_STORAGE")
 
-storage = get_storage()
+if is_type == 'db':
+    from models.engine.db_storage import DBStorage
+    storage = DBStorage()
+else:
+    from models.engine.file_storage import FileStorage
+    storage = FileStorage()
+
+storage.reload()

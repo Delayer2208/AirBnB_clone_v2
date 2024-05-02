@@ -1,31 +1,28 @@
 #!/usr/bin/python3
-"""State Module for HBNB project."""
-import models
+""" State Module for the HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
+import models
+from models.city import City
 from sqlalchemy.orm import relationship
-
+from sqlalchemy import Column, String
+from os import getenv
 
 class State(BaseModel, Base):
-    """State class for HBNB project."""
+    """ State class """
     if models.is_type == "db":
         __tablename__ = 'states'
-
         name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state", cascade="all, delete-orphan")
-
+        cities = relationship('City', backref='state', cascade='delete')
     else:
         name = ""
 
-        def __init__(self, *args, **kwargs):
-            """Initializes a new State instance."""
-            super().__init__(*args, **kwargs)
-
+    if models.is_type != 'db':
         @property
         def cities(self):
-            """Getter attribute in case of filestorage"""
-            city_list = []
-            for city in list(models.storage.all(models.City).values()):
+            """ Getter method for cities """
+            cities_list = []
+            all_cities = models.storage.all(City).values()
+            for city in all_cities:
                 if city.state_id == self.id:
-                    city_list.append(city)
-            return city_list
+                    cities_list.append(city)
+            return cities_list
