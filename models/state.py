@@ -1,34 +1,28 @@
 #!/usr/bin/python3
-""" holds class State"""
-import models
+""" State Module for the HBNB project """
 from models.base_model import BaseModel, Base
+import models
 from models.city import City
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-
+from sqlalchemy import Column, String
+from os import getenv
 
 class State(BaseModel, Base):
-    """Representation of state """
-    if models.storage_t == "db":
+    """ State class """
+    if models.is_type == "db":
         __tablename__ = 'states'
         name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state")
+        cities = relationship('City', backref='state', cascade='delete')
     else:
         name = ""
 
-    def __init__(self, *args, **kwargs):
-        """initializes state"""
-        super().__init__(*args, **kwargs)
-
-    if models.storage_t != "db":
+    if models.is_type != 'db':
         @property
         def cities(self):
-            """getter for list of city instances related to the state"""
-            city_list = []
-            all_cities = models.storage.all(City)
-            for city in all_cities.values():
+            """ Getter method for cities """
+            cities_list = []
+            all_cities = models.storage.all(City).values()
+            for city in all_cities:
                 if city.state_id == self.id:
-                    city_list.append(city)
-            return city_list
+                    cities_list.append(city)
+            return cities_list
